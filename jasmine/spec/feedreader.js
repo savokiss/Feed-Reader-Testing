@@ -25,7 +25,7 @@ $(function () {
     /*
      * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有链接字段而且链接不是空的。
      */
-    it('url is defined and not empty', function () {
+    it('url in feeds are defined and not empty', function () {
       allFeeds.forEach(function (feed) {
         expect(feed.url).toBeDefined();
         expect(typeof feed.url).toBe('string');
@@ -37,7 +37,7 @@ $(function () {
     /*
      * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有名字字段而且不是空的。
      */
-    it('name is defined and not empty', function () {
+    it('name in feeds are defined and not empty', function () {
       allFeeds.forEach(function (feed) {
         expect(feed.name).toBeDefined();
         expect(typeof feed.name).toBe('string');
@@ -79,14 +79,24 @@ $(function () {
 
   /* TODO: 13. 写一个叫做 "Initial Entries" 的测试用例 */
   describe('Initial Entries', function () {
-    /* TODO:
+    var $feed;
+    beforeEach(function (done) {
+      $feed = $('.feed');
+      loadFeed(0, function () {
+        done();
+      });
+    });
+    /* 
      * 写一个测试保证 loadFeed 函数被调用而且工作正常，即在 .feed 容器元素
      * 里面至少有一个 .entry 的元素。
      *
      * 记住 loadFeed() 函数是异步的所以这个而是应该使用 Jasmine 的 beforeEach
      * 和异步的 done() 函数。
      */
-
+    it('loadFeed works and has at least 1 .entry element', function (done) {
+      expect($feed.find('.entry').length).toBeGreaterThan(0);
+      done();
+    });
   });
 
   /* TODO: 写一个叫做 "New Feed Selection" 的测试用例 */
