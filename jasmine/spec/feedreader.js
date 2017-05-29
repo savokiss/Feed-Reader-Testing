@@ -16,7 +16,7 @@ $(function () {
      * 比如你把 app.js 里面的 allFeeds 变量变成一个空的数组然后刷新
      * 页面看看会发生什么。
      */
-    it('are defined', function () {
+    it('feeds are defined', function () {
       expect(allFeeds).toBeDefined();
       expect(allFeeds.length).not.toBe(0);
     });
@@ -25,9 +25,11 @@ $(function () {
     /* TODO:
      * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有链接字段而且链接不是空的。
      */
-    it('url is defined', function () {
-      allFeeds.forEach(function (val) {
-        expect(val.url).toBeDefined();
+    it('url is defined and not empty', function () {
+      allFeeds.forEach(function (feed) {
+        expect(feed.url).toBeDefined();
+        expect(typeof feed.url).toBe('string');
+        expect(feed.url.trim().length).not.toBe(0);
       });
     });
 
@@ -35,9 +37,11 @@ $(function () {
     /* TODO:
      * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有名字字段而且不是空的。
      */
-    it('name is defined', function () {
-      allFeeds.forEach(function (val) {
-        expect(val.name).toBeDefined();
+    it('name is defined and not empty', function () {
+      allFeeds.forEach(function (feed) {
+        expect(feed.name).toBeDefined();
+        expect(typeof feed.name).toBe('string');
+        expect(feed.name.trim().length).not.toBe(0);
       });
     });
   });
@@ -47,7 +51,7 @@ $(function () {
   describe('The menu', function () {
     var $body, $menu, menuHiddenClass = 'menu-hidden';
 
-    beforeEach(function(){
+    beforeEach(function () {
       $body = $('body');
       $menu = $('.menu-icon-link');
     });
@@ -55,7 +59,7 @@ $(function () {
      * 写一个测试用例保证菜单元素默认是隐藏的。你需要分析 html 和 css
      * 来搞清楚我们是怎么实现隐藏/展示菜单元素的。
      */
-    it('body has .menu-hidden', function() {
+    it('body has .menu-hidden', function () {
       expect($body.hasClass(menuHiddenClass)).toBe(true);
     });
 
@@ -64,7 +68,7 @@ $(function () {
      * 测试应该包含两个 expectation ： 当点击图标的时候菜单是否显示，
      * 再次点击的时候是否隐藏。
      */
-    it('toggle menu works', function(){
+    it('toggle menu works', function () {
       $menu.click();
       expect($body.hasClass(menuHiddenClass)).toBe(false);
       $menu.click();
