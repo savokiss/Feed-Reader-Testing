@@ -104,9 +104,9 @@ $(function () {
     var $feed, oldFeedContent;
     beforeEach(function (done) {
       $feed = $('.feed');
-      loadFeed(0, function() {
+      loadFeed(0, function () {
         oldFeedContent = $('.feed').html();
-        loadFeed(1, function(){
+        loadFeed(1, function () {
           done();
         });
       });
