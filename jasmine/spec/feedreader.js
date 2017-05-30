@@ -7,6 +7,8 @@
  * 我们得保证在 DOM 准备好之前他们不会被运行。
  */
 $(function () {
+  // in case of timeout
+  jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
   /* 这是我们第一个测试用例 - 其中包含了一定数量的测试。这个用例的测试
    * 都是关于 Rss 源的定义的，也就是应用中的 allFeeds 变量。
    */
@@ -105,6 +107,7 @@ $(function () {
     it('loadFeed works and has at least 1 .entry element', function () {
       expect($feed.find('.entry').length).toBeGreaterThan(0);
     });
+
   });
 
   /* 写一个叫做 "New Feed Selection" 的测试用例 */
@@ -126,6 +129,7 @@ $(function () {
     it('loadFeed works and contents really changes', function () {
       expect($('.feed').html()).not.toEqual(oldFeedContent);
     });
+
   });
 
 }());
