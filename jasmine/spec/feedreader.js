@@ -77,7 +77,7 @@ $(function () {
   });
 
 
-  /* TODO: 13. 写一个叫做 "Initial Entries" 的测试用例 */
+  /* 13. 写一个叫做 "Initial Entries" 的测试用例 */
   describe('Initial Entries', function () {
     var $feed;
     beforeEach(function (done) {
@@ -99,12 +99,26 @@ $(function () {
     });
   });
 
-  /* TODO: 写一个叫做 "New Feed Selection" 的测试用例 */
+  /* 写一个叫做 "New Feed Selection" 的测试用例 */
   describe('New Feed Selection', function () {
-    /* TODO:
+    var $feed, oldFeedContent;
+    beforeEach(function (done) {
+      $feed = $('.feed');
+      loadFeed(0, function() {
+        oldFeedContent = $('.feed').html();
+        loadFeed(1, function(){
+          done();
+        });
+      });
+    });
+    /*
      * 写一个测试保证当用 loadFeed 函数加载一个新源的时候内容会真的改变。
      * 记住，loadFeed() 函数是异步的。
      */
+    it('loadFeed works and contents really changes', function (done) {
+      expect($('.feed').html()).not.toEqual(oldFeedContent);
+      done();
+    });
   });
 
 }());
