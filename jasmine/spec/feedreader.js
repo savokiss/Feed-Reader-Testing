@@ -25,12 +25,9 @@ $(function () {
     /*
      * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有链接字段而且链接不是空的。
      */
-    it('url in feeds are defined and not empty', function () {
-      allFeeds.forEach(function (feed) {
-        expect(feed.url).toBeDefined();
-        expect(typeof feed.url).toBe('string');
-        expect(feed.url.trim().length).not.toBe(0);
-      });
+    it('url in feeds are defined and valid', function () {
+      var regularExpressionUrl = /^((ht|f)tps?):\/\/([\w\-]+(\.[\w\-]+)*\/)*[\w\-]+(\.[\w\-]+)*\/?(\?([\w\-\.,@?^=%&:\/~\+#]*)+)?/; // 检查 URL 格式是否正确的正规表达式
+      checkKeyValid('url', regularExpressionUrl);
     });
 
 
@@ -38,12 +35,24 @@ $(function () {
      * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有名字字段而且不是空的。
      */
     it('name in feeds are defined and not empty', function () {
-      allFeeds.forEach(function (feed) {
-        expect(feed.name).toBeDefined();
-        expect(typeof feed.name).toBe('string');
-        expect(feed.name.trim().length).not.toBe(0);
-      });
+      checkKeyValid('name');
     });
+
+    /**
+     * 检测字段是否定义且非空
+     * @param { String } key 需要检测的键
+     * @param { RegExp } reg 需要匹配的正则
+     */
+    function checkKeyValid(key, reg) {
+      allFeeds.forEach(function (feed) {
+        expect(feed[key]).toBeDefined();
+        expect(typeof feed[key]).toBe('string');
+        expect(feed[key].trim().length).not.toBe(0);
+        if(reg){
+          expect(feed[key]).toMatch(reg);
+        }
+      });
+    }
   });
 
 
@@ -93,9 +102,8 @@ $(function () {
      * 记住 loadFeed() 函数是异步的所以这个而是应该使用 Jasmine 的 beforeEach
      * 和异步的 done() 函数。
      */
-    it('loadFeed works and has at least 1 .entry element', function (done) {
+    it('loadFeed works and has at least 1 .entry element', function () {
       expect($feed.find('.entry').length).toBeGreaterThan(0);
-      done();
     });
   });
 
@@ -115,9 +123,8 @@ $(function () {
      * 写一个测试保证当用 loadFeed 函数加载一个新源的时候内容会真的改变。
      * 记住，loadFeed() 函数是异步的。
      */
-    it('loadFeed works and contents really changes', function (done) {
+    it('loadFeed works and contents really changes', function () {
       expect($('.feed').html()).not.toEqual(oldFeedContent);
-      done();
     });
   });
 
