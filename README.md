@@ -10,7 +10,7 @@
 - normalize.css
 - icomoon
 
-## Testing
+## Test Cases
 - 测试了 RSS 源数据定义且不为空
 - 测试了 源数据中的 url 定义了且合法
 - 测试了 源数据中的 name 定义了且不为空
